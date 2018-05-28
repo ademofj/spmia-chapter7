@@ -1,0 +1,30 @@
+language: java
+cache:
+  directories:
+  - "$HOME/.m2"
+jdk:
+- oraclejdk8
+sudo: required
+services:
+- docker
+notifications:
+  slack: 
+  email:
+  - ademo@126.com
+  on_success: always
+  on_failure: always
+env:
+  global:
+  - secure: XDit5DRbWMiOjK1JAh4l2AhjCNOOREQCHqbxtfuuqzwkaimzBZYZqSUPhXycHQEI2dJTyhdxPV+t0wlHC3ajZlLYnjtzsD7kfV1aOdTnNVZAduLq3azgKT/UmKYNmb4Lt/+yfyTsgeDT+4sqNil2U0BfgEmd/2FzbH9oAFKQNLdj/gGeCCIJzWE7158lhe/oRxx4oawX0WRP4pgCIqe53OWViNRUGAL+VYG4oykZDu52E4Igo7eFYnxaKQpkx9S2AgA7UdCIbCjFlTUmpSXKZYHTtJHwrHOfjYVeRCPeA0cDojBMyLiedHKdZHyuY5FZZyDbsM6o7ksANFjosPUXiTkmzGlC7DIf3/i1kf/Vgsgygn1LeyDIZtLjXDE9ZrCi+3riTvvjlk/4cUUxWQfL/npdzmLbRssuTsDRYAkbv1/u4sl2/aNXrrEm8ws1/d34Bklwowezxi6gXr8cNjYTte1VhyBMzXFpsCuQ2sO6tV+wMipb/lHZ8wr1KpywKTPuIdeHFfhxGtXBRf8C+a4FuGh4V6rY9oeJEYXV2sO1uTGh6MOKWl5+Dy7fIB4D0PerKvh9QzSVZsqrMpnfoHG9naa1HEDGpUJ0N/ib6LDSgYZrcsWDyvVeZHWRI0YeV3rBV30qgS7DA3fXENwNlMOB9VnLj1R8OreMuO+yYPql6FQ=
+  - secure: CHzBCRawGvGG3C/prN40o7BSdD5674XInWYz/qvUEHP+B7Tw9Egv7JdGkZoEGH1FZ/7xIJw/DXwghAPV4zAgEqrId5ILTu6EgmYIbyBcuj8d5dLwA1FWNkXiUGIjRcaUK8IyFM0QA+PCtE7XeOSrrNxaSM/OntnRAwWzQ1ty+Ita+ac6y1fbcmBQTifabbwOX+diLpK1VifPvHyNE9H25eCXvvdktd12E+Qjj069Na7O54bWN0niELhpE+eGyamR/J7vhseXNSpZvcVQJOA5DZJTggyYCiwGlts2MwHuOKsE8J1HD/LZ8Zy5T85FQ+cQh1tYtw+GD5tQ0pY7o1jiO6PqAPYsBY1A4GlqY0TgvGIpZOU39chhvU1F9YU2llyt6PPP7R52MOwYOEqY9YoTj+jhm+YdRW9/GBzDGxYt1dyjGFkcEpDvsKynccM4u4/D+sjHcav1MJNyBaX4uOhw06+54IAAHaNFEPcFXjkOAj8fYAfNtt0FOBLs0hmZ7T/hZeBTducQDsD8kY/z2T0DjGAglJhsssVouupSI4SSp/H1A65NLmRuo4cs4P05sLVMNwoJdO9feD7r3EMidZ5GTvrFEjRyRB9yKzXc/MIwhQ+F9XHVSLfsBHVYmfzwINuOKHJ7c+Qp9CqeLkKS/yhQVOsmbCggy1mNuyTcl9BDcFg=
+script:
+- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+- mvn clean package docker:build
+- docker push ademo/tmx-licensing-service:chapter7
+- docker push ademo/tmx-organization-service:chapter7
+- docker push ademo/tmx-orgservice-new:chapter7
+- docker push ademo/tmx-confsvr:chapter7
+- docker push ademo/tmx-eurekasvr:chapter7
+- docker push ademo/tmx-zuulsvr:chapter7
+- docker push ademo/tmx-authentication-service:chapter7
+- docker push ademo/tmx-specialroutes-service:chapter7
